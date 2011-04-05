@@ -1,0 +1,150 @@
+# German translation for zeitgeist
+# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
+# This file is distributed under the same license as the zeitgeist package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: zeitgeist\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-03-20 15:48+0100\n"
+"PO-Revision-Date: 2010-02-15 05:51+0000\n"
+"Last-Translator: oliverreiter <oliver_reiter@gmx.at>\n"
+"Language-Team: German <de@li.org>\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2010-09-15 05:08+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+#: ../zeitgeist-daemon.py:71 ../zeitgeist-daemon.py:84
+msgid "if another Zeitgeist instance is already running, replace it"
+msgstr ""
+
+#: ../zeitgeist-daemon.py:75
+msgid "do not start zeitgeist-datahub automatically"
+msgstr ""
+
+#: ../zeitgeist-daemon.py:79
+msgid "how much information should be printed; possible values:"
+msgstr ""
+
+#~ msgid "Starting Zeitgeist service..."
+#~ msgstr "Zeitgeist-Service wird gestartet ..."
+
+#~ msgid "No passive loggers found, bye."
+#~ msgstr "Es wurden keine passiven Logger gefunden. Auf Wiedersehen."
+
+#~ msgid "Could not load file: %s"
+#~ msgstr "Datei konnte nicht geladen werden: %s"
+
+#~ msgid "Updating database with new %s items"
+#~ msgstr "Aktualisierung der Datenbank mit neuen %s Objekten"
+
+#~ msgid "Lost connection to zeitgeist-daemon, terminating."
+#~ msgstr "Verbindung zum Zeitgeist-Daemon verloren, Anwendung wird beendet"
+
+#~ msgid "Error logging item from \"%s\": %s"
+#~ msgstr "Fehler beim Protokollieren des Objektes von \"%s\": %s"
+
+#~ msgid "Could not import GTK; data source disabled."
+#~ msgstr ""
+#~ "Konnte die GTK-Bibliothek nicht importieren; Die Datenquelle ist "
+#~ "deaktiviert."
+
+#~ msgid "Comments"
+#~ msgstr "Kommentare"
+
+#~ msgid "Bookmarks"
+#~ msgstr "Lesezeichen"
+
+#~ msgid "Tags"
+#~ msgstr "Schlagwörter"
+
+#~ msgid "Documents"
+#~ msgstr "Dokumente"
+
+#~ msgid "Modified"
+#~ msgstr "Geändert"
+
+#~ msgid "Messages"
+#~ msgstr "Nachrichten"
+
+#~ msgid "Email"
+#~ msgstr "E-Mail"
+
+#~ msgid "Feeds"
+#~ msgstr "Abonnements"
+
+#~ msgid "Created"
+#~ msgstr "Erstellt"
+
+#~ msgid "Images"
+#~ msgstr "Bilder"
+
+#~ msgid "Music"
+#~ msgstr "Musik"
+
+#~ msgid "Videos"
+#~ msgstr "Videos"
+
+#~ msgid "Visited"
+#~ msgstr "Besucht"
+
+#~ msgid "System Resources"
+#~ msgstr "System Ressourcen"
+
+#~ msgid "Activities"
+#~ msgstr "Aufgaben"
+
+#~ msgid "Notifications"
+#~ msgstr "Benachrichtungen"
+
+#~ msgid "Files"
+#~ msgstr "Dateien"
+
+#~ msgid "Received"
+#~ msgstr "Empfangen"
+
+#~ msgid "Warnings"
+#~ msgstr "Warnungen"
+
+#~ msgid "Send"
+#~ msgstr "Senden"
+
+#~ msgid "Web History"
+#~ msgstr "Aufgerufene Webseiten"
+
+#~ msgid "Errors"
+#~ msgstr "Fehler"
+
+#~ msgid "Applications"
+#~ msgstr "Anwendungen"
+
+#~ msgid "Websites visited with Firefox"
+#~ msgstr "Mit Firefox besuchte Webseiten"
+
+#~ msgid "Firefox History"
+#~ msgstr "Firefox-Chronik"
+
+#~ msgid "No Firefox profile found."
+#~ msgstr "Es konnten keine Firefox-Profile gefunden werden."
+
+#~ msgid "Unable to monitor Firefox's history: %s: %s"
+#~ msgstr "Es ist nicht möglich die Firefox-Chronik darzustellen: %s: %s"
+
+#~ msgid "Monitoring Firefox's history: %s"
+#~ msgstr "Darstellen der Firefox Webseitenchronik: %s"
+
+#~ msgid "Unable to monitor Evolution: %s: %s"
+#~ msgstr "Evolution kann nicht überwacht werden: %s: %s"
+
+#~ msgid "Watching for Tomboy notes in \"%s\"."
+#~ msgstr "Warte auf Tomboy Notizen in \"%s\"."
+
+#~ msgid "Monitoring Evolution: %s"
+#~ msgstr "Überwache Evolution: %s"
+
+#~ msgid "Broadcasts"
+#~ msgstr "Alle Nachrichten"

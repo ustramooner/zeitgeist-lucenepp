@@ -1,0 +1,291 @@
+# Ukrainian translation for gnome-zeitgeist
+# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
+# This file is distributed under the same license as the gnome-zeitgeist package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gnome-zeitgeist\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-03-20 15:48+0100\n"
+"PO-Revision-Date: 2010-02-15 05:47+0000\n"
+"Last-Translator: brabadu <brabadu@gmail.com>\n"
+"Language-Team: Ukrainian <uk@li.org>\n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2010-09-15 05:08+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+#: ../zeitgeist-daemon.py:71 ../zeitgeist-daemon.py:84
+msgid "if another Zeitgeist instance is already running, replace it"
+msgstr ""
+
+#: ../zeitgeist-daemon.py:75
+msgid "do not start zeitgeist-datahub automatically"
+msgstr ""
+
+#: ../zeitgeist-daemon.py:79
+msgid "how much information should be printed; possible values:"
+msgstr ""
+
+#~ msgid "Starting Zeitgeist service..."
+#~ msgstr "Файло-облікова/пошукова система Зайтгайст завантажується..."
+
+#~ msgid "No passive loggers found, bye."
+#~ msgstr "Не знайдено пасивних журналів, бувайте."
+
+#~ msgid "Could not load file: %s"
+#~ msgstr "Неможливо завантажити файл: %s"
+
+#~ msgid "Updating database with new %s items"
+#~ msgstr "До бази даних додаються нові %s елементи"
+
+#~ msgid "Lost connection to zeitgeist-daemon, terminating."
+#~ msgstr "Втрачено зв'язок з демоном zeitgeist-daemon, виходжу."
+
+#~ msgid "Error logging item from \"%s\": %s"
+#~ msgstr "Помилка запису в журнал елемента з \"%s\": %s"
+
+#~ msgid "Could not import GTK; data source disabled."
+#~ msgstr "Не вдається імпортувати GTK; джерело даних деактивовано."
+
+#~ msgid "Open Journal"
+#~ msgstr "Відкрити журнал дій"
+
+#~ msgid ""
+#~ "GNOME Zeitgeist is a tool for easily browsing and finding files on your "
+#~ "computer."
+#~ msgstr ""
+#~ "Файло-облікова/пошукова система Зайтгайст є інструментом швидкого пошуку "
+#~ "та перегляду файлів на Вашому компютері"
+
+#~ msgid "Stars"
+#~ msgstr "Зірки"
+
+#~ msgid "Journal"
+#~ msgstr "Журнал"
+
+#~ msgid "Error: Zeitgeist service not running."
+#~ msgstr ""
+#~ "Помилка: Служба Файло-облікової/пошукової системи Зайтгайст не запущена"
+
+#~ msgid "Notes"
+#~ msgstr "Нотатки"
+
+#~ msgid "Create New Note"
+#~ msgstr "Створити новий запис"
+
+#~ msgid "Make a new Tomboy note"
+#~ msgstr "Створити нову нотатку Tomboy"
+
+#~ msgid "Documents"
+#~ msgstr "Документи"
+
+#~ msgid "Other"
+#~ msgstr "Решта"
+
+#~ msgid "Images"
+#~ msgstr "Зображення"
+
+#~ msgid "Music"
+#~ msgstr "Музика"
+
+#~ msgid "Videos"
+#~ msgstr "Відео"
+
+#~ msgid "Firefox History"
+#~ msgstr "Історія веб-переглядів Браузера Firefox"
+
+#~ msgid "Websites visited with Firefox"
+#~ msgstr "Веб-сторінки, що відкривались в Firefox"
+
+#~ msgid "Recently used tags"
+#~ msgstr "Нещодавно використані мітки"
+
+#~ msgid "Most used tags"
+#~ msgstr "Найчастіш вживані мітки"
+
+#~ msgid "All tags"
+#~ msgstr "Всі мітки"
+
+#~ msgid "Search"
+#~ msgstr "Пошук"
+
+#~ msgid "Show recent activities"
+#~ msgstr "Відобразити нещодавні дії, події"
+
+#~ msgid "Search for activities"
+#~ msgstr "Знайти записи своєї діяльності"
+
+#~ msgid "Tags"
+#~ msgstr "Мітки"
+
+#~ msgid "Calendar"
+#~ msgstr "Календар"
+
+#~ msgid "Enable Grouping"
+#~ msgstr "Запровадити групування елементів"
+
+#~ msgid "Name"
+#~ msgstr "Назва"
+
+#~ msgid "Time"
+#~ msgstr "Час"
+
+#~ msgid "Tagged with:"
+#~ msgstr "Має мітку:"
+
+#~ msgid "The file has been removed from"
+#~ msgstr "Файл було меренесено з"
+
+#~ msgid "New Document"
+#~ msgstr "Новий документ"
+
+#~ msgid "Related files"
+#~ msgstr "Повязані файли"
+
+#~ msgid "Last usage:"
+#~ msgstr "Востаннє використано:"
+
+#~ msgid "Tags:"
+#~ msgstr "Мітки:"
+
+#~ msgid "Files related to %s"
+#~ msgstr "Файли, що мають стосунок до %s"
+
+#~ msgid "Today"
+#~ msgstr "Сьогодні"
+
+#~ msgid "All favorites"
+#~ msgstr "Всі закладки"
+
+#~ msgid "Unbookmark"
+#~ msgstr "Зняти закладку"
+
+#~ msgid "Show related activities"
+#~ msgstr "Відобразити повязані з елементом дії"
+
+#~ msgid "Edit tags..."
+#~ msgstr "Керування мітками..."
+
+#~ msgid "Delete item from Zeitgeist"
+#~ msgstr "Видалити елемент з бази Зайтгайст"
+
+#~ msgid "Edit tags for %s"
+#~ msgstr "Керування мітками %s ..."
+
+#~ msgid "Add"
+#~ msgstr "Додати"
+
+#~ msgid "Cancel"
+#~ msgstr "Скасувати"
+
+#~ msgid "GNOME Zeitgeist Project Viewer"
+#~ msgstr "Перегляд Проекту Зайтгайст для GNOME"
+
+#~ msgid "GNOME Zeitgeist Timeline"
+#~ msgstr "Графік Зайстгайст для GNOME"
+
+#~ msgid "Yesterday"
+#~ msgstr "Вчора"
+
+#~ msgid "Could not create database: %s"
+#~ msgstr "Помилка створення бази даних: %s"
+
+#~ msgid "Error connecting with database: %s"
+#~ msgstr "Помилка зєднання з базою даних: %s"
+
+#~ msgid "Browse a journal of recently used files"
+#~ msgstr "Переглянути журнал нещодавно використаних файлів"
+
+#~ msgid "File Journal"
+#~ msgstr "Журнал файлів"
+
+#~ msgid "Zeitgeist File Journal"
+#~ msgstr "Журнал файлів в Зайтгайст"
+
+#~ msgid "Start the Zeitgeist engine"
+#~ msgstr "Запустити службу Зайтгайст"
+
+#~ msgid "Zeitgeist Tray Icon"
+#~ msgstr "Значок Зайтгайст в зоні сповіщення"
+
+#~ msgid "Could not connect to D-Bus."
+#~ msgstr "Неможливо зєднатись з D-Bus."
+
+#~ msgid "Created"
+#~ msgstr "Створено"
+
+#~ msgid "Comments"
+#~ msgstr "Коментарі"
+
+#~ msgid "Bookmarks"
+#~ msgstr "Закладки"
+
+#~ msgid "Messages"
+#~ msgstr "Повідомлення"
+
+#~ msgid "Email"
+#~ msgstr "Ел.пошта"
+
+#~ msgid "Feeds"
+#~ msgstr "Подачі"
+
+#~ msgid "Modified"
+#~ msgstr "Змінено"
+
+#~ msgid "Notifications"
+#~ msgstr "Сповіщення"
+
+#~ msgid "Received"
+#~ msgstr "Отримано"
+
+#~ msgid "Warnings"
+#~ msgstr "Застереження"
+
+#~ msgid "Visited"
+#~ msgstr "Відвідано"
+
+#~ msgid "Send"
+#~ msgstr "Надіслати"
+
+#~ msgid "Web History"
+#~ msgstr "Історія перегляду Інтернету"
+
+#~ msgid "Activities"
+#~ msgstr "Діяльність"
+
+#~ msgid "Errors"
+#~ msgstr "Помилки"
+
+#~ msgid "Applications"
+#~ msgstr "Програми"
+
+#~ msgid "System Resources"
+#~ msgstr "Системні ресурси"
+
+#~ msgid "No Firefox profile found."
+#~ msgstr "Не знайдений профіль Firefox."
+
+#~ msgid "Files"
+#~ msgstr "Файли"
+
+#~ msgid "Watching for Tomboy notes in \"%s\"."
+#~ msgstr "Слідкую за нотатками Tomboy у \"%s\"."
+
+#~ msgid "Monitoring Evolution: %s"
+#~ msgstr "Відслідковую Evolution: %s"
+
+#~ msgid "Unable to monitor Firefox's history: %s: %s"
+#~ msgstr "Неможливо відслідковувати історію Firefox: %s: %s"
+
+#~ msgid "Unable to monitor Evolution: %s: %s"
+#~ msgstr "Неможливо відслідковувати Evolution: %s: %s"
+
+#~ msgid "Monitoring Firefox's history: %s"
+#~ msgstr "Відслідковую історію Firefox: %s"
+
+#~ msgid "Broadcasts"
+#~ msgstr "Трансляції"

@@ -1,0 +1,148 @@
+# Hungarian translation for zeitgeist
+# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
+# This file is distributed under the same license as the zeitgeist package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: zeitgeist\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-03-20 15:48+0100\n"
+"PO-Revision-Date: 2010-02-15 05:53+0000\n"
+"Last-Translator: Gergely Szarka <szarka.honved@gmail.com>\n"
+"Language-Team: Hungarian <hu@li.org>\n"
+"Language: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2010-09-15 05:08+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+#: ../zeitgeist-daemon.py:71 ../zeitgeist-daemon.py:84
+msgid "if another Zeitgeist instance is already running, replace it"
+msgstr ""
+
+#: ../zeitgeist-daemon.py:75
+msgid "do not start zeitgeist-datahub automatically"
+msgstr ""
+
+#: ../zeitgeist-daemon.py:79
+msgid "how much information should be printed; possible values:"
+msgstr ""
+
+#~ msgid "Starting Zeitgeist service..."
+#~ msgstr "Zeitgeist szolgáltatás indítása..."
+
+#~ msgid "No passive loggers found, bye."
+#~ msgstr "Nem találtunk passzív naplózót, viszlát!"
+
+#~ msgid "Could not load file: %s"
+#~ msgstr "Nem tudom betölteni a fájlt: %s"
+
+#~ msgid "Updating database with new %s items"
+#~ msgstr "Adatbázis frissítése új %s elemekkel"
+
+#~ msgid "Lost connection to zeitgeist-daemon, terminating."
+#~ msgstr "Elvesztettük a kapcsolatot a zeitgeist-daemonnal, a program kilép."
+
+#~ msgid "Error logging item from \"%s\": %s"
+#~ msgstr "Hiba történt az elem naplózásakor innen: \"%s\": %s"
+
+#~ msgid "Could not import GTK; data source disabled."
+#~ msgstr "Nem sikerült importálni a GTK-t; az adat forrás ki lett kapcsolva."
+
+#~ msgid "Notifications"
+#~ msgstr "Értesítések"
+
+#~ msgid "Files"
+#~ msgstr "Fájlok"
+
+#~ msgid "Received"
+#~ msgstr "Fogadott"
+
+#~ msgid "Warnings"
+#~ msgstr "Figyelmeztetések"
+
+#~ msgid "Send"
+#~ msgstr "Küldés"
+
+#~ msgid "Web History"
+#~ msgstr "Webes előzmények"
+
+#~ msgid "Activities"
+#~ msgstr "Tevékenységek"
+
+#~ msgid "Errors"
+#~ msgstr "Hibák"
+
+#~ msgid "Applications"
+#~ msgstr "Alkalmazások"
+
+#~ msgid "Websites visited with Firefox"
+#~ msgstr "Firefox-szal látogatott weboldalak"
+
+#~ msgid "Firefox History"
+#~ msgstr "Firefox Előzmények"
+
+#~ msgid "No Firefox profile found."
+#~ msgstr "Nem találtam Firefox-profilt."
+
+#~ msgid "Tags"
+#~ msgstr "Címkék"
+
+#~ msgid "Bookmarks"
+#~ msgstr "Könyvjelzők"
+
+#~ msgid "Videos"
+#~ msgstr "Videók"
+
+#~ msgid "Comments"
+#~ msgstr "Megjegyzések"
+
+#~ msgid "Documents"
+#~ msgstr "Dokumentumok"
+
+#~ msgid "Images"
+#~ msgstr "Képek"
+
+#~ msgid "Music"
+#~ msgstr "Zene"
+
+#~ msgid "Modified"
+#~ msgstr "Módosítva"
+
+#~ msgid "Created"
+#~ msgstr "Létrehozva"
+
+#~ msgid "Messages"
+#~ msgstr "Üzenetek"
+
+#~ msgid "Email"
+#~ msgstr "E-mail"
+
+#~ msgid "Feeds"
+#~ msgstr "Hírforrások"
+
+#~ msgid "Visited"
+#~ msgstr "Látogatott"
+
+#~ msgid "Broadcasts"
+#~ msgstr "Broadcast-ek"
+
+#~ msgid "System Resources"
+#~ msgstr "Rendszererőforrások"
+
+#~ msgid "Unable to monitor Firefox's history: %s: %s"
+#~ msgstr "Nem sikerül figyelni a Firefox előzményeit: %s: %s"
+
+#~ msgid "Unable to monitor Evolution: %s: %s"
+#~ msgstr "Nem sikerül figyelni az Evolution-t: %s: %s"
+
+#~ msgid "Monitoring Evolution: %s"
+#~ msgstr "Evolution figyelése: %s"
+
+#~ msgid "Monitoring Firefox's history: %s"
+#~ msgstr "Firefox előzményeinek figyelése: %s"
+
+#~ msgid "Watching for Tomboy notes in \"%s\"."
+#~ msgstr "Tomboy jegyzetek figyelése itt: \"%s\"."

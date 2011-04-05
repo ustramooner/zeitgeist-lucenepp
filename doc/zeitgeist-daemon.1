@@ -1,0 +1,129 @@
+.TH ZEITGEIST\-DAEMON 1 "May 20, 2009" "Zeitgeist"
+
+.SH NAME
+zeitgeist\-daemon \- D\-Bus interface providing a log of activities
+
+.SH SYNOPSIS
+\fBzeitgeist\-daemon\fP \fI[OPTION]\fP
+
+.SH DESCRIPTION
+\fBzeitgeist\-daemon\fP is a daemon which keeps track of activities
+on your system (file usage, browser history, calendar events, etc.)
+and logs them into a central database. It does not only create a
+chronologic register, but also supports tagging and can establish
+relationships between activities.
+.PP
+All this information is provided by external applications which
+communicate with \fBzeitgeist\-daemon\fP over D-Bus. Interested
+programs can connect with it and request information, insert new
+items or modify existing information (delete items, add tags,
+bookmark items and so on).
+.PP
+By default, \fBzeitgeist\-daemon\fP will also start the bundled
+logging application \fBzeitgeist\-datahub\fP.
+
+.SH OPTIONS
+The program follows the usual GNU command line syntax, with
+options starting with two dashes (`--'). A summary of options is
+included below.
+.TP
+.B \-\-no\-datahub, \-\-no\-passive\-loggers
+Do not start \fBzeitgeist\-datahub\fP together with this daemon.
+.TP
+.B \-\-replace
+Replace any existing Zeitgeist instance if there is one already running. If this
+option isn't used, \fBzeitgeist\-daemon\fP will refuse to start if another
+running instance is found.
+.TP
+.B --log-level=\fILOG_LEVEL\fP
+Specifies how much information should be printed to the standard output.
+Possible values are: DEBUG, INFO, WARNING, ERROR, CRITICAL.
+.TP
+.B \-\-quit
+Stop a currently running Zeitgeist instance and exit. This lets Zeitgeist
+finish any operation it may currently be doing.
+.TP
+.B \-\-version
+Shows which version of Zeitgeist is being executed.
+.TP
+.B \-\-help
+Shows a short help message listing all supported options.
+
+.SH ENVIRONMENT VARIABLES
+.TP
+.B ZEITGEIST_DATA_PATH
+Overrides the directory where user data files are placed. The default
+value is that of XDG's data dir (usually ~/.local/share/zeitgeist).
+.TP
+.B ZEITGEIST_DATABASE_PATH
+This variable lets you specify an override for the filename of the main
+database. The default value is $ZEITGEIST_DATA_PATH/activity.sqlite.
+.TP
+.B ZEITGEIST_DEFAULT_EXTENSIONS
+This variable lets you specify an override for the extensions which are
+loaded at daemon startup time. Per default the \'Blacklist\' and the
+\'DataSourceRegistry\' extension are loaded.
+.TP
+.B ZEITGEIST_EXTRA_EXTENSIONS
+This variable lets you add extensions which are loaded at daemon
+startup time.
+.TP
+The ZEITGEIST_DEFAULT_EXTENSIONS and the ZEITGEIST_EXTRA_EXTENSIONS
+variable require a no-space comma separated list of module.class names.
+.TP
+.B ZEITGEIST_DEBUG_QUERY_PLANS
+When set to a non-empty string other than 0 zeitgeist-daemon will send all
+SQL queries and their corresponding query plans to the debug log.
+
+.SH SIGNALS
+\fISIGHUP\f1: zeitgeist\-daemon will shut itself down in a clean way. 
+.RS
+It is recommended that system updates of Zeitgeist send this signal to 
+all running instances of zeitgeist-daemon. DBus activation will make sure 
+the updated software is automatically restarted when needed.
+
+.SH EXIT CODES
+.TP
+.B 0
+Zeitgeist terminated normally.
+.TP
+.B 1
+An unspecified error occurred.
+.TP
+.B 27
+A database upgrade failed.
+
+.SH EXAMPLES
+.PP
+.B environment variables
+.PP
+To start the daemon with no extensions loaded run:
+    ZEITGEIST_DEFAULT_EXTENSIONS= zeitgeist-daemon
+.PP
+To run the daemon with only the non-default extensions \'bzr.notify\'
+and \'tracker.games\' run:
+    ZEITGEIST_DEFAULT_EXTENSIONS= ZEITGEIST_EXTRA_EXTENSIONS=bzr.notify,tracker.games zeitgeist-daemon
+
+.SH SEE ALSO
+\fBzeitgeist-datahub\fR, \fBgnome-activity-journal\fR
+
+.SH BUGS
+Please report any bugs on https://bugs.launchpad.net/zeitgeist.
+
+.SH AUTHORS
+Please see the AUTHORS file bundled with this application for
+a complete list of contributors.
+
+.SH LICENSE
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation, either version 2.1 of the License, or
+(at your option) any later version.
+.PP
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+.PP
+You should have received a copy of the GNU Lesser General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.

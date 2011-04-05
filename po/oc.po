@@ -1,0 +1,106 @@
+# Occitan (post 1500) translation for zeitgeist
+# Copyright (c) 2010 Rosetta Contributors and Canonical Ltd 2010
+# This file is distributed under the same license as the zeitgeist package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: zeitgeist\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-03-20 15:48+0100\n"
+"PO-Revision-Date: 2010-04-21 04:39+0000\n"
+"Last-Translator: Cédric VALMARY (Tot en òc) <cvalmary@yahoo.fr>\n"
+"Language-Team: Occitan (post 1500) <oc@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2010-09-15 05:08+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+#: ../zeitgeist-daemon.py:71 ../zeitgeist-daemon.py:84
+msgid "if another Zeitgeist instance is already running, replace it"
+msgstr ""
+
+#: ../zeitgeist-daemon.py:75
+msgid "do not start zeitgeist-datahub automatically"
+msgstr ""
+
+#: ../zeitgeist-daemon.py:79
+msgid "how much information should be printed; possible values:"
+msgstr ""
+
+#~ msgid "Starting Zeitgeist service..."
+#~ msgstr "Aviada del servici d'indexacion de Zeitgeist..."
+
+#~ msgid "Could not load file: %s"
+#~ msgstr "Impossible de cargar lo fichièr : %s"
+
+#~ msgid "Tags"
+#~ msgstr "Etiquetas"
+
+#~ msgid "Comments"
+#~ msgstr "Comentaris"
+
+#~ msgid "Bookmarks"
+#~ msgstr "Marcapaginas"
+
+#~ msgid "Documents"
+#~ msgstr "Documents"
+
+#~ msgid "Modified"
+#~ msgstr "Modificat"
+
+#~ msgid "Messages"
+#~ msgstr "Messatges"
+
+#~ msgid "Email"
+#~ msgstr "Corrièl"
+
+#~ msgid "Broadcasts"
+#~ msgstr "Difusions"
+
+#~ msgid "Feeds"
+#~ msgstr "Fluxes"
+
+#~ msgid "Created"
+#~ msgstr "Creat"
+
+#~ msgid "Images"
+#~ msgstr "Imatges"
+
+#~ msgid "Music"
+#~ msgstr "Musica"
+
+#~ msgid "Videos"
+#~ msgstr "Vidèos"
+
+#~ msgid "Visited"
+#~ msgstr "Visitat"
+
+#~ msgid "Notifications"
+#~ msgstr "Notificacions"
+
+#~ msgid "Files"
+#~ msgstr "Fichièrs"
+
+#~ msgid "Received"
+#~ msgstr "Recebut"
+
+#~ msgid "Warnings"
+#~ msgstr "Avertiments"
+
+#~ msgid "Send"
+#~ msgstr "Mandar"
+
+#~ msgid "Web History"
+#~ msgstr "Istoric web"
+
+#~ msgid "Activities"
+#~ msgstr "Activitats"
+
+#~ msgid "Errors"
+#~ msgstr "Errors"
+
+#~ msgid "Applications"
+#~ msgstr "Aplicacions"

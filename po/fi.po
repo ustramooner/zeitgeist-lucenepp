@@ -1,0 +1,215 @@
+# Finnish translation for gnome-zeitgeist
+# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
+# This file is distributed under the same license as the gnome-zeitgeist package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gnome-zeitgeist\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-03-20 15:48+0100\n"
+"PO-Revision-Date: 2010-08-06 18:50+0000\n"
+"Last-Translator: Zeitgeist Framework Team <zeitgeist@lists.launchpad.net>\n"
+"Language-Team: Finnish <fi@li.org>\n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2010-09-15 05:08+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+#: ../zeitgeist-daemon.py:71 ../zeitgeist-daemon.py:84
+msgid "if another Zeitgeist instance is already running, replace it"
+msgstr "Jos toinen Zeigeist-taho on toiminnassa, korvaa se"
+
+#: ../zeitgeist-daemon.py:75
+msgid "do not start zeitgeist-datahub automatically"
+msgstr "älä käynnistä zeigeist-datakeskitintä automaattisesti"
+
+#: ../zeitgeist-daemon.py:79
+msgid "how much information should be printed; possible values:"
+msgstr "kuinka paljon tietoa tulisi tulostaa; mahdolliset arvot:"
+
+#~ msgid "File \"%s\" not found, not starting datahub"
+#~ msgstr "Tiedostoa \"%s\" ei löytynyt, datakeskitintä ei aloiteta"
+
+#~ msgid "Starting Zeitgeist service..."
+#~ msgstr "Käynnistetään Zeitgeist-palvelua..."
+
+#~ msgid "No passive loggers found, bye."
+#~ msgstr "Yhtään passiivista kirjautujaa ei löytynyt, näkemiin."
+
+#~ msgid "Could not load file: %s"
+#~ msgstr "Ei voitua ladata tiedostoa: %s"
+
+#~ msgid "Updating database with new %s items"
+#~ msgstr "Päivitetään tietokantaa uudella %s kohdalla"
+
+#~ msgid "Lost connection to zeitgeist-daemon, terminating."
+#~ msgstr "Yhteys zeitgeist-velhoon katkesi, lopetetaan."
+
+#~ msgid "Error logging item from \"%s\": %s"
+#~ msgstr "Kohdetta kirjattaessa välillä \"%s\":%s tapahtui virhe"
+
+#~ msgid "Could not import GTK; data source disabled."
+#~ msgstr "Kohdetta GTK ei voitu tuoda, datalähde estetty"
+
+#~ msgid "Open Journal"
+#~ msgstr "Avaa Päiväkirja"
+
+#~ msgid ""
+#~ "GNOME Zeitgeist is a tool for easily browsing and finding files on your "
+#~ "computer."
+#~ msgstr ""
+#~ "GNOME Zeitgeist on työkalu jolla on helppoa selata ja etsiä tiedostoja "
+#~ "tietokoneelta."
+
+#~ msgid "Stars"
+#~ msgstr "Tähtiä"
+
+#~ msgid "Journal"
+#~ msgstr "Päiväkirja"
+
+#~ msgid "Error: Zeitgeist service not running."
+#~ msgstr "Virhe: Zeitegeist palvelu ei ole käynnissä."
+
+#~ msgid "Notes"
+#~ msgstr "Muistiinpanoja"
+
+#~ msgid "Create New Note"
+#~ msgstr "Luo uusi muistiinpano"
+
+#~ msgid "Make a new Tomboy note"
+#~ msgstr "Tee uusi Tomboy muistio"
+
+#~ msgid "Documents"
+#~ msgstr "Dokumentit"
+
+#~ msgid "Other"
+#~ msgstr "Muut"
+
+#~ msgid "Images"
+#~ msgstr "Kuvat"
+
+#~ msgid "Music"
+#~ msgstr "Musiikki"
+
+#~ msgid "Videos"
+#~ msgstr "Videot"
+
+#~ msgid "Firefox History"
+#~ msgstr "Firefoxin Historia"
+
+#~ msgid "Websites visited with Firefox"
+#~ msgstr "Nettisivut joita vierailtu Fifoxilla"
+
+#~ msgid "Recently used tags"
+#~ msgstr "Lähiaikoina käytettyjä tägejä"
+
+#~ msgid "Most used tags"
+#~ msgstr "Useimmin käytetyt tägit"
+
+#~ msgid "All tags"
+#~ msgstr "Kaikki tägit"
+
+#~ msgid "Search"
+#~ msgstr "Etsi"
+
+#~ msgid "Show recent activities"
+#~ msgstr "Näytä uusimmat toimet"
+
+#~ msgid "Search for activities"
+#~ msgstr "Etsi tehtäviä"
+
+#~ msgid "Tags"
+#~ msgstr "Tägejä"
+
+#~ msgid "Calendar"
+#~ msgstr "Kalenteri"
+
+#~ msgid "Enable Grouping"
+#~ msgstr "Aktivoi Ryhmittely"
+
+#~ msgid "Name"
+#~ msgstr "Nimi"
+
+#~ msgid "Time"
+#~ msgstr "Aika"
+
+#~ msgid "Tagged with:"
+#~ msgstr "Tägää:"
+
+#~ msgid "The file has been removed from"
+#~ msgstr "Tiedosto on poistettu"
+
+#~ msgid "New Document"
+#~ msgstr "Uusi Dokumentti"
+
+#~ msgid "Related files"
+#~ msgstr "Liityvät tiedostot"
+
+#~ msgid "Last usage:"
+#~ msgstr "Viimeksi käytetyt:"
+
+#~ msgid "Tags:"
+#~ msgstr "Tägit:"
+
+#~ msgid "Files related to %s"
+#~ msgstr "Tiedostoja liittyen %s"
+
+#~ msgid "Today"
+#~ msgstr "Tänään"
+
+#~ msgid "All favorites"
+#~ msgstr "Kaikki suosikit"
+
+#~ msgid "Unbookmark"
+#~ msgstr "Poista kirjainmerkeistä"
+
+#~ msgid "Show related activities"
+#~ msgstr "Näytä liittyviä toimia"
+
+#~ msgid "Edit tags..."
+#~ msgstr "Muokkaa tägejä"
+
+#~ msgid "Delete item from Zeitgeist"
+#~ msgstr "Poista Zeitgeististä"
+
+#~ msgid "Edit tags for %s"
+#~ msgstr "Muokkaa tägejä %s"
+
+#~ msgid "Add"
+#~ msgstr "Lisää"
+
+#~ msgid "Cancel"
+#~ msgstr "Peru"
+
+#~ msgid "GNOME Zeitgeist Project Viewer"
+#~ msgstr "GNOME Zeitgeist Projektin selain"
+
+#~ msgid "GNOME Zeitgeist Timeline"
+#~ msgstr "GNOME Zeitgeist Aikajana"
+
+#~ msgid "Yesterday"
+#~ msgstr "Eilen"
+
+#~ msgid "Could not create database: %s"
+#~ msgstr "Ei voitu luoda tietokantaa: %s"
+
+#~ msgid "Error connecting with database: %s"
+#~ msgstr "Virhe: Yhteydessä tietokantaan: %s"
+
+#~ msgid "Browse a journal of recently used files"
+#~ msgstr "Selaa päiväkirjaa viimeksi avattuja tiedostoja"
+
+#~ msgid "File Journal"
+#~ msgstr "Tiedostojournaali"
+
+#~ msgid "Zeitgeist File Journal"
+#~ msgstr "Zeitgeist tiedostojournaali"
+
+#~ msgid "Start the Zeitgeist engine"
+#~ msgstr "Käynnistä Zeitgeist moottori"
+
+#~ msgid "Zeitgeist Tray Icon"
+#~ msgstr "Zeitgeist ilmoitusalueen kuvake"

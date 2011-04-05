@@ -1,0 +1,148 @@
+# Macedonian translation for zeitgeist
+# Copyright (c) 2010 Rosetta Contributors and Canonical Ltd 2010
+# This file is distributed under the same license as the zeitgeist package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: zeitgeist\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-03-20 15:48+0100\n"
+"PO-Revision-Date: 2010-02-15 05:53+0000\n"
+"Last-Translator: Мартин Спасовски <shorteysk@gmail.com>\n"
+"Language-Team: Macedonian <mk@li.org>\n"
+"Language: mk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2010-09-15 05:08+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+#: ../zeitgeist-daemon.py:71 ../zeitgeist-daemon.py:84
+msgid "if another Zeitgeist instance is already running, replace it"
+msgstr ""
+
+#: ../zeitgeist-daemon.py:75
+msgid "do not start zeitgeist-datahub automatically"
+msgstr ""
+
+#: ../zeitgeist-daemon.py:79
+msgid "how much information should be printed; possible values:"
+msgstr ""
+
+#~ msgid "Starting Zeitgeist service..."
+#~ msgstr "Го стартувам Zeitgeist сервисот..."
+
+#~ msgid "No passive loggers found, bye."
+#~ msgstr "Не најдов пасивни записничари, пријатно."
+
+#~ msgid "Could not load file: %s"
+#~ msgstr "Неможе да се вчита датотеката: %s"
+
+#~ msgid "Updating database with new %s items"
+#~ msgstr "Обновувам датабаза со нови %s предмети"
+
+#~ msgid "Lost connection to zeitgeist-daemon, terminating."
+#~ msgstr "Конекцијата со zeitgeist-daemon е изгубена, прекинување."
+
+#~ msgid "Error logging item from \"%s\": %s"
+#~ msgstr "Грешка во запишување на предеметот од \"%s\": %s"
+
+#~ msgid "Could not import GTK; data source disabled."
+#~ msgstr "Неможев да увезам GTK; податочен извор оневозможен."
+
+#~ msgid "Tags"
+#~ msgstr "Етикети"
+
+#~ msgid "Comments"
+#~ msgstr "Коментари"
+
+#~ msgid "Bookmarks"
+#~ msgstr "Обележувачи"
+
+#~ msgid "Documents"
+#~ msgstr "Документи"
+
+#~ msgid "Modified"
+#~ msgstr "Променето"
+
+#~ msgid "Messages"
+#~ msgstr "Пораки"
+
+#~ msgid "Email"
+#~ msgstr "E-пошта"
+
+#~ msgid "Broadcasts"
+#~ msgstr "Емитувања"
+
+#~ msgid "Feeds"
+#~ msgstr "Канали"
+
+#~ msgid "Created"
+#~ msgstr "Создадено"
+
+#~ msgid "Images"
+#~ msgstr "Слики"
+
+#~ msgid "Music"
+#~ msgstr "Музика"
+
+#~ msgid "Videos"
+#~ msgstr "Видео"
+
+#~ msgid "Visited"
+#~ msgstr "Посетено"
+
+#~ msgid "System Resources"
+#~ msgstr "Системски ресурси"
+
+#~ msgid "Notifications"
+#~ msgstr "Известувања"
+
+#~ msgid "Files"
+#~ msgstr "Датотеки"
+
+#~ msgid "Received"
+#~ msgstr "Примени"
+
+#~ msgid "Warnings"
+#~ msgstr "Предупредувања"
+
+#~ msgid "Send"
+#~ msgstr "Испрати"
+
+#~ msgid "Web History"
+#~ msgstr "Веб историја"
+
+#~ msgid "Activities"
+#~ msgstr "Активности"
+
+#~ msgid "Errors"
+#~ msgstr "Грешки"
+
+#~ msgid "Applications"
+#~ msgstr "Апликации"
+
+#~ msgid "Websites visited with Firefox"
+#~ msgstr "Вебсајтови посетени со Firefox"
+
+#~ msgid "Firefox History"
+#~ msgstr "Firefox Историја"
+
+#~ msgid "No Firefox profile found."
+#~ msgstr "Не беше најден Firefox профил."
+
+#~ msgid "Watching for Tomboy notes in \"%s\"."
+#~ msgstr "Ги надгледувам Tomboy белешките во \"%s\"."
+
+#~ msgid "Monitoring Evolution: %s"
+#~ msgstr "Го надгледувам Evolution: %s"
+
+#~ msgid "Unable to monitor Firefox's history: %s: %s"
+#~ msgstr "Неможам да ја надгледувам историјата на Firefox: %s: %s"
+
+#~ msgid "Unable to monitor Evolution: %s: %s"
+#~ msgstr "Неможам да го надгледувам Evolution: %s: %s"
+
+#~ msgid "Monitoring Firefox's history: %s"
+#~ msgstr "Ја надгледувам Firefox историјата: %s"
