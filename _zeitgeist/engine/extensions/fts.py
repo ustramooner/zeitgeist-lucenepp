@@ -36,7 +36,7 @@ from xdg.DesktopEntry import DesktopEntry, xdg_data_dirs
 import logging
 import subprocess
 from xml.dom import minidom
-import xapian
+import lucene
 import os
 from Queue import Queue, Empty
 import threading
@@ -52,7 +52,7 @@ from zeitgeist.datamodel import Interpretation, Manifestation
 logging.basicConfig(level=logging.DEBUG)
 log = logging.getLogger("zeitgeist.fts")
 
-INDEX_FILE = os.path.join(constants.DATA_PATH, "fts.index")
+INDEX_FILE = os.path.join(constants.DATA_PATH, "fts.clucene.index")
 FTS_DBUS_OBJECT_PATH = "/org/gnome/zeitgeist/index/activity"
 FTS_DBUS_INTERFACE = "org.gnome.zeitgeist.Index"
 
@@ -67,11 +67,19 @@ FILTER_PREFIX_SUBJECT_MIMETYPE = "ZGST"
 FILTER_PREFIX_SUBJECT_STORAGE = "ZGSS"
 FILTER_PREFIX_XDG_CATEGORY = "AC"
 
-VALUE_EVENT_ID = 0
-VALUE_TIMESTAMP = 1
+LUCENE_FIELD_CATEGORY = "category"
+LUCENE_FIELD_CONTENTS = "contents"
+LUCENE_FIELD_APP = "app"
+LUCENE_FIELD_TITLE = "title"
+LUCENE_FIELD_NAME = "name"
+LUCENE_FIELD_SITE = "site"
+LUCENE_FIELD_FLAGS = "flags"
+
+VALUE_EVENT_ID = "id"
+VALUE_TIMESTAMP = "ms"
 
 # When sorting by of the COALESCING_RESULT_TYPES result types,
-# we need to fetch some extra events from the Xapian index because
+# we need to fetch some extra events from the Lucene index because
 # the final result set will be coalesced on some property of the event
 COALESCING_RESULT_TYPES = [ \
 	ResultType.MostRecentSubjects,
@@ -168,40 +176,33 @@ class Indexer:
 	Abstraction of the FT indexer and search engine
 	"""
 	
-	QUERY_PARSER_FLAGS = xapian.QueryParser.FLAG_PHRASE |   \
-	                     xapian.QueryParser.FLAG_BOOLEAN |  \
-	                     xapian.QueryParser.FLAG_PURE_NOT |  \
-	                     xapian.QueryParser.FLAG_LOVEHATE | \
-	                     xapian.QueryParser.FLAG_WILDCARD
 	
 	def __init__ (self, engine):
 		self._engine = engine
 	
 		log.debug("Opening full text index: %s" % INDEX_FILE)
-		self._index = xapian.WritableDatabase(INDEX_FILE, xapian.DB_CREATE_OR_OPEN)
-		self._tokenizer = indexer = xapian.TermGenerator()
-		self._query_parser = xapian.QueryParser()
-		self._query_parser.set_database (self._index)
-		self._query_parser.add_prefix("name", "N")
-		self._query_parser.add_prefix("title", "N")
-		self._query_parser.add_prefix("site", "S")
-		self._query_parser.add_prefix("app", "A")
-		self._query_parser.add_boolean_prefix("zgei", FILTER_PREFIX_EVENT_INTERPRETATION)
-		self._query_parser.add_boolean_prefix("zgem", FILTER_PREFIX_EVENT_MANIFESTATION)
-		self._query_parser.add_boolean_prefix("zga", FILTER_PREFIX_ACTOR)
-		self._query_parser.add_prefix("zgsu", FILTER_PREFIX_SUBJECT_URI)
-		self._query_parser.add_boolean_prefix("zgsi", FILTER_PREFIX_SUBJECT_INTERPRETATION)
-		self._query_parser.add_boolean_prefix("zgsm", FILTER_PREFIX_SUBJECT_MANIFESTATION)
-		self._query_parser.add_prefix("zgso", FILTER_PREFIX_SUBJECT_ORIGIN)
-		self._query_parser.add_boolean_prefix("zgst", FILTER_PREFIX_SUBJECT_MIMETYPE)
-		self._query_parser.add_boolean_prefix("zgss", FILTER_PREFIX_SUBJECT_STORAGE)
-		self._query_parser.add_prefix("category", FILTER_PREFIX_XDG_CATEGORY)
-		self._query_parser.add_valuerangeprocessor(
-		      xapian.NumberValueRangeProcessor(VALUE_EVENT_ID, "id", True))
-		self._query_parser.add_valuerangeprocessor(
-		      xapian.NumberValueRangeProcessor(VALUE_TIMESTAMP, "ms", False))
-		self._query_parser.set_default_op(xapian.Query.OP_AND)
-		self._enquire = xapian.Enquire(self._index)
+		self._analyzer = lucene.StandardAnalyzer(lucene.Version.LUCENE_CURRENT)
+		self._query_parser = lucene.QueryParser(lucene.Version.LUCENE_CURRENT, "defaultfield", self._analyzer)
+		self._directory = lucene.FSDirectory.open(INDEX_FILE)
+		self._maxFieldLength = 10000
+		self._index = lucene.IndexWriter(self._directory, self._analyzer, self._maxFieldLength)
+		#TODO 
+		#self._query_parser.add_prefix("name", "N")
+		#self._query_parser.add_prefix("title", "N")
+		#self._query_parser.add_prefix("site", "S")
+		#self._query_parser.add_prefix("app", "A")
+		#self._query_parser.add_boolean_prefix("zgei", FILTER_PREFIX_EVENT_INTERPRETATION)
+		#self._query_parser.add_boolean_prefix("zgem", FILTER_PREFIX_EVENT_MANIFESTATION)
+		#self._query_parser.add_boolean_prefix("zga", FILTER_PREFIX_ACTOR)
+		#self._query_parser.add_boolean_prefix("zgsi", FILTER_PREFIX_SUBJECT_INTERPRETATION)
+		#self._query_parser.add_boolean_prefix("zgsm", FILTER_PREFIX_SUBJECT_MANIFESTATION)
+		#self._query_parser.add_prefix("category", FILTER_PREFIX_XDG_CATEGORY)
+		#self._query_parser.add_valuerangeprocessor(
+		#      xapian.NumberValueRangeProcessor(VALUE_EVENT_ID, "id", True))
+		#self._query_parser.add_valuerangeprocessor(
+		#      xapian.NumberValueRangeProcessor(VALUE_TIMESTAMP, "ms", False))
+		#self._query_parser.set_default_op(xapian.Query.OP_AND)
+		self._enquire = lucene.IndexSearcher(self._directory)
 		
 		# Cache of parsed DesktopEntrys
 		self._desktops = {}
@@ -217,31 +218,19 @@ class Indexer:
 		self._check_index ()
 		
 	def _check_index (self):
-		if self._index.get_doccount() == 0:
+		if self._index.numDocs() == 0:
 			# If the index is empty we trigger a rebuild
 			# We must delay reindexing until after the engine is done setting up
 			log.info("Empty index detected. Doing full rebuild")
 			gobject.idle_add (self._reindex)
-		else:
-			# If the index doesn't use the zgsu prefix, it must be old-style,
-			# and we must rebuild it
-			query = self._query_parser.parse_query ("zgsu:file*",
-		                                            self.QUERY_PARSER_FLAGS)
-			self._enquire.set_query (query)
-			hits = self._enquire.get_mset (0, 1)
-			hit_count = hits.get_matches_estimated()
-			if hit_count == 0:
-				log.info ("Old index format detected. Rebuilding index.")
-				gobject.idle_add (self._reindex)
+
 	
 	def _reindex (self):
 		"""
 		Index everything in the ZG log
 		"""
 		self._index.close ()
-		self._index = xapian.WritableDatabase(INDEX_FILE, xapian.DB_CREATE_OR_OVERWRITE)
-		self._query_parser.set_database (self._index)
-		self._enquire = xapian.Enquire(self._index)
+		self._index = lucene.IndexWriter(self._directory, self._analyzer, self._maxFieldLength)
 		
 		all_events = self._engine.find_events(TimeRange.always(),
 		                                      [], StorageState.Any,
@@ -276,6 +265,8 @@ class Indexer:
 		
 		The filters argument should be a list of event templates.
 		"""
+		print "search %s " % query_string
+		exit(1)
 		# Expand event template filters if necessary
 		if filters:
 			query_string = "(%s) AND (%s)" % (query_string, self._compile_event_filter_query (filters))
@@ -362,7 +353,7 @@ class Indexer:
 				if is_dirty:
 					# Write changes to disk
 					log.debug("Committing FTS index")
-					self._index.flush()
+					self._index.commit()
 					is_dirty = False
 				else:
 					log.debug("No changes to index. Sleeping")
@@ -373,6 +364,8 @@ class Indexer:
 		for that doc id.
 		Note: This is slow, but there's not much we can do about it
 		"""
+		print "TODO delete"
+		return
 		try:
 			_id = xapian.sortable_serialise(float(event_id))
 			query = xapian.Query(xapian.Query.OP_VALUE_RANGE, 
@@ -447,14 +440,14 @@ class Indexer:
 		
 		return None
 	
-	def _index_actor (self, actor):
+	def _index_actor (self, doc, actor):
 		"""
 		Takes an actor as a path to a .desktop file or app:// uri
 		and index the contents of the corresponding .desktop file
 		into the document currently set for self._tokenizer.
 		"""
 		if not actor : return
-		
+
 		# Get the path of the .desktop file and convert it to
 		# an app id (eg. 'gedit.desktop')
 		scheme, host, path = self._split_uri(url_unescape (actor))
@@ -471,46 +464,68 @@ class Indexer:
 		desktop = self._get_desktop_entry(path)
 		if desktop:
 			if not desktop.getNoDisplay():
-				self._tokenizer.index_text(desktop.getName(), 5)
-				self._tokenizer.index_text(desktop.getName(), 5, "A")
-				self._tokenizer.index_text(desktop.getGenericName(), 5)
-				self._tokenizer.index_text(desktop.getGenericName(), 5, "A")
-				self._tokenizer.index_text(desktop.getComment(), 2)
-				self._tokenizer.index_text(desktop.getComment(), 2, "A")
+				f = lucene.Field(LUCENE_FIELD_APP, desktop.getName(), lucene.Field.STORE_YES, lucene.Field.INDEX_ANALYZED)
+				f.setBoost(5)
+				doc.add(f)
+				f = lucene.Field(LUCENE_FIELD_APP, desktop.getGenericName(), lucene.Field.STORE_YES, lucene.Field.INDEX_ANALYZED)
+				f.setBoost(5)
+				doc.add(f)
+				f = lucene.Field(LUCENE_FIELD_APP, desktop.getComment(), lucene.Field.STORE_YES, lucene.Field.INDEX_ANALYZED)
+				f.setBoost(2)
+				doc.add(f)
 			
-				doc = self._tokenizer.get_document()
 				for cat in desktop.getCategories():
-					doc.add_boolean_term(FILTER_PREFIX_XDG_CATEGORY+cat.lower())
+					doc.add(lucene.Field(LUCENE_FIELD_CATEGORY, cat.lower(), lucene.Field.STORE_YES, lucene.Field.INDEX_ANALYZED))
 		else:
 			log.debug("Unable to look up app info for %s" % actor)
 		
 	
-	def _index_uri (self, uri):
+	def _index_uri (self, doc, uri):
 		"""
 		Index `uri` into the document currectly set on self._tokenizer
 		"""
+		#TODO:
 		# File URIs and paths are indexed in one way, and all other,
 		# usually web URIs, are indexed in another way because there may
 		# be domain name etc. in there we want to rank differently
 		scheme, host, path = self._split_uri (url_unescape (uri))
 		if scheme == "file://" or not scheme:
 			path, name = os.path.split(path)
-			self._tokenizer.index_text(name, 5)
-			self._tokenizer.index_text(name, 5, "N")
+			
+			#store in name field
+			f = lucene.Field(LUCENE_FIELD_NAME, name, lucene.Field.STORE_YES, lucene.Field.INDEX_ANALYZED)
+			f.setBoost(5)
+			doc.add(f)
+			
+			#store as content
+			f = lucene.Field(LUCENE_FIELD_CONTENTS, name, lucene.Field.STORE_NO, lucene.Field.INDEX_ANALYZED)
+			f.setBoost(5)
+			doc.add(f)
 			
 			# Index parent names with descending weight
 			weight = 5
 			while path and name:
 				weight = weight / 1.5
 				path, name = os.path.split(path)
-				self._tokenizer.index_text(name, weight)
+				f = lucene.Field(LUCENE_FIELD_CONTENTS, name, lucene.Field.STORE_NO, lucene.Field.INDEX_ANALYZED)
+				f.setBoost(weight)
+				doc.add(f)
+				
 			
 		elif scheme == "mailto:":
 			tokens = host.split("@")
 			name = tokens[0]
-			self._tokenizer.index_text(name, 6)
+			
+			#store as content (TODO?? why is that)
+			f = lucene.Field(LUCENE_FIELD_CONTENTS, name, lucene.Field.STORE_NO, lucene.Field.INDEX_ANALYZED)
+			f.setBoost(6)
+			doc.add(f)
+			
 			if len(tokens) > 1:
-				self._tokenizer.index_text(" ".join[1:], 1)
+				#TODO: what's this doing???
+				#self._tokenizer.index_text(" ".join[1:], 1)
+				pass
+				
 		else:
 			# We're cautious about indexing the path components of
 			# non-file URIs as some websites practice *extremely* long
@@ -519,17 +534,42 @@ class Indexer:
 			if len(name) > 30 : name = name[:30]
 			if len(path) > 30 : path = path[30]
 			if name:
-				self._tokenizer.index_text(name, 5)
-				self._tokenizer.index_text(name, 5, "N")
+				#store in name field
+				f = lucene.Field(LUCENE_FIELD_NAME, name, lucene.Field.STORE_YES, lucene.Field.INDEX_ANALYZED)
+				f.setBoost(5)
+				doc.add(f)
+				
+				#store as content
+				f = lucene.Field(LUCENE_FIELD_CONTENTS, name, lucene.Field.STORE_NO, lucene.Field.INDEX_ANALYZED)
+				f.setBoost(5)
+				doc.add(f)
 	  		if path:
-   				self._tokenizer.index_text(path, 1)
-			  	self._tokenizer.index_text(path, 1, "N")
+				#store in name field
+				f = lucene.Field(LUCENE_FIELD_NAME, path, lucene.Field.STORE_YES, lucene.Field.INDEX_ANALYZED)
+				f.setBoost(1)
+				doc.add(f)
+				
+				#store as content
+				f = lucene.Field(LUCENE_FIELD_CONTENTS, path, lucene.Field.STORE_NO, lucene.Field.INDEX_ANALYZED)
+				f.setBoost(1)
+				doc.add(f)
 			if host:
-				self._tokenizer.index_text(host, 2)
-  				self._tokenizer.index_text(host, 2, "N")
-  				self._tokenizer.index_text(host, 2, "S")
+				#store in name field
+				f = lucene.Field(LUCENE_FIELD_NAME, host, lucene.Field.STORE_YES, lucene.Field.INDEX_ANALYZED)
+				f.setBoost(2)
+				doc.add(f)
+				
+				#store as content
+				f = lucene.Field(LUCENE_FIELD_CONTENTS, host, lucene.Field.STORE_NO, lucene.Field.INDEX_ANALYZED)
+				f.setBoost(2)
+				doc.add(f)
+				
+				#store as site
+				f = lucene.Field(LUCENE_FIELD_SITE, host, lucene.Field.STORE_NO, lucene.Field.INDEX_ANALYZED)
+				f.setBoost(2)
+				doc.add(f)
 	
-	def _index_text (self, text):
+	def _index_text (self, doc, text):
 		"""
 		Index `text` as raw text data for the document currently
 		set on self._tokenizer. The text is assumed to be a primary
@@ -537,7 +577,9 @@ class Indexer:
 		
 		Primary use is for subject.text
 		"""
-		self._tokenizer.index_text(text, 5)
+		f = lucene.Field(LUCENE_FIELD_CONTENTS, text, lucene.Field.STORE_NO, lucene.Field.INDEX_ANALYZED)
+		f.setBoost(5)
+		doc.add(f)
 	
 	def _index_contents (self, uri):
 		# xmlindexer doesn't extract words for URIs only for file paths
@@ -558,32 +600,33 @@ class Indexer:
 				lines.append(line.data)
 		
 		if lines:
-				self._tokenizer.index_text (" ".join(lines))
+				f = lucene.Field(LUCENE_FIELD_CONTENTS, " ".join(lines), lucene.Field.STORE_NO, lucene.Field.INDEX_ANALYZED)
+				doc.add(f)
 		
 	
 	def _add_doc_filters (self, event, doc):
 		"""Adds the filtering rules to the doc. Filtering rules will
 		   not affect the relevancy ranking of the event/doc"""
 		if event.interpretation:
-			doc.add_boolean_term (FILTER_PREFIX_EVENT_INTERPRETATION+event.interpretation)
+			doc.add(lucene.Field(FILTER_PREFIX_EVENT_INTERPRETATION, event.interpretation, lucene.Field.STORE_NO, lucene.Field.INDEX_NOT_ANALYZED_NO_NORMS))
 		if event.manifestation:
-			doc.add_boolean_term (FILTER_PREFIX_EVENT_MANIFESTATION+event.manifestation)
+			doc.add(lucene.Field(FILTER_PREFIX_EVENT_MANIFESTATION, event.manifestation, lucene.Field.STORE_NO, lucene.Field.INDEX_NOT_ANALYZED_NO_NORMS))
 		if event.actor:
-			doc.add_boolean_term (FILTER_PREFIX_ACTOR+mangle_uri(event.actor))
+			doc.add(lucene.Field(FILTER_PREFIX_ACTOR, mangle_uri(event.actor), lucene.Field.STORE_NO, lucene.Field.INDEX_NOT_ANALYZED_NO_NORMS))
 		
 		for su in event.subjects:
 			if su.uri:
-				doc.add_boolean_term (FILTER_PREFIX_SUBJECT_URI+mangle_uri(su.uri))
+				doc.add(lucene.Field(FILTER_PREFIX_SUBJECT_URI, mangle_uri(su.uri), lucene.Field.STORE_NO, lucene.Field.INDEX_NOT_ANALYZED_NO_NORMS))
 			if su.interpretation:
-				doc.add_boolean_term (FILTER_PREFIX_SUBJECT_INTERPRETATION+su.interpretation)
+				doc.add(lucene.Field(FILTER_PREFIX_SUBJECT_INTERPRETATION, su.interpretation, lucene.Field.STORE_NO, lucene.Field.INDEX_NOT_ANALYZED_NO_NORMS))
 			if su.manifestation:
-				doc.add_boolean_term (FILTER_PREFIX_SUBJECT_MANIFESTATION+su.manifestation)
+				doc.add(lucene.Field(FILTER_PREFIX_SUBJECT_MANIFESTATION, su.manifestation, lucene.Field.STORE_NO, lucene.Field.INDEX_NOT_ANALYZED_NO_NORMS))
 			if su.origin:
-				doc.add_boolean_term (FILTER_PREFIX_SUBJECT_ORIGIN+mangle_uri(su.origin))
+				doc.add(lucene.Field(FILTER_PREFIX_SUBJECT_ORIGIN, mangle_uri(su.origin), lucene.Field.STORE_NO, lucene.Field.INDEX_NOT_ANALYZED_NO_NORMS))
 			if su.mimetype:
-				doc.add_boolean_term (FILTER_PREFIX_SUBJECT_MIMETYPE+su.mimetype)
+				doc.add(lucene.Field(FILTER_PREFIX_SUBJECT_MIMETYPE, su.mimetype, lucene.Field.STORE_NO, lucene.Field.INDEX_NOT_ANALYZED_NO_NORMS))
 			if su.storage:
-				doc.add_boolean_term (FILTER_PREFIX_SUBJECT_STORAGE+su.storage)
+				doc.add(lucene.Field(FILTER_PREFIX_SUBJECT_STORAGE, su.storage, lucene.Field.STORE_NO, lucene.Field.INDEX_NOT_ANALYZED_NO_NORMS))
 	
 	def _index_event_real (self, event):
 		if not isinstance (event, Event):
@@ -593,15 +636,12 @@ class Indexer:
 			return
 		
 		try:
-			doc = xapian.Document()
-			doc.add_value (VALUE_EVENT_ID,
-			               xapian.sortable_serialise(float(event.id)))
-			doc.add_value (VALUE_TIMESTAMP,
-			               xapian.sortable_serialise(float(event.timestamp)))
-			self._tokenizer.set_document (doc)
-		
-			self._index_actor (event.actor)
-		
+			doc = lucene.Document()
+			doc.add(lucene.NumericField(VALUE_EVENT_ID).setLongValue(int(event.id)))
+			doc.add(lucene.NumericField(VALUE_TIMESTAMP).setLongValue(int(event.timestamp)))
+			
+			self._index_actor (doc, event.actor)
+
 			for subject in event.subjects:
 				if not subject.uri : continue
 				
@@ -612,21 +652,20 @@ class Indexer:
 					log.info ("URI too long (%s). Discarding: %s..."% (len(subject.uri), subject.uri[:30]))
 					continue
 				log.debug("Indexing '%s'" % subject.uri)
-				self._index_uri (subject.uri)
-				self._index_text (subject.text)
+				self._index_uri (doc, subject.uri)
+				self._index_text (doc, subject.text)
 				
 				# If the subject URI is an actor, we index the .desktop also
 				if subject.uri.startswith ("application://"):
-					self._index_actor (subject.uri)
-				
+					self._index_actor (doc, subject.uri)
+
 				# File contents indexing disabled for now...
 				#self._index_contents (subject.uri)
 				
 				# FIXME: Possibly index payloads when we have apriori knowledge
 			
-			self._add_doc_filters (event, doc)	
-			self._index.add_document (doc)
-		
+			self._add_doc_filters (event, doc)
+			self._index.addDocument(doc)
 		except Exception, e:
 			log.error("Error indexing event: %s" % e)
 
@@ -640,6 +679,8 @@ class Indexer:
 		   type tree of the interpretations and manifestations will be expanded
 		   to match all child symbols as well
 		"""
+		print "_compile_event_filter_query"
+		exit(1)
 		query = []
 		for event in events:
 			if not isinstance(event, Event):
@@ -673,6 +714,8 @@ class Indexer:
 	def _compile_time_range_filter_query (self, time_range):
 		"""Takes a TimeRange and compiles a range query for it"""
 		
+		print "_compile_time_range_filter_query"
+		exit(1)
 		if not isinstance(time_range, TimeRange):
 			raise TypeError("Expected TimeRange, but found %s" % type(time_range))
 		
